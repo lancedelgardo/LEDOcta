@@ -27,6 +27,7 @@ class MainWindow : public QMainWindow
 
     void on_offPB_clicked();
 
+
   private:
     Ui::MainWindow *ui;
     QNetworkAccessManager *_manager = Q_NULLPTR;

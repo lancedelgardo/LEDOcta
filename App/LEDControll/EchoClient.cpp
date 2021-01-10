@@ -1,16 +1,18 @@
 #include "EchoClient.h"
 
 #include <QDebug>
+#include <QNetworkAccessManager>
+#include <QTcpSocket>
 
 EchoClient::EchoClient(const QUrl &url, bool debug, QObject *parent) : QObject(parent), m_Url(url), m_Debug(debug)
 {
     QNetworkProxy::setApplicationProxy(QNetworkProxy::NoProxy);
     if (m_Debug) qDebug() << "WebSocket server:" << url;
-    connect(&m_webSocket, &QWebSocket::connected, this, &EchoClient::onConnected);
-    connect(&m_webSocket, &QWebSocket::disconnected, this, &EchoClient::closed);
+    //    connect(&m_webSocket, &QWebSocket::connected, this, &EchoClient::onConnected);
+    //    connect(&m_webSocket, &QWebSocket::disconnected, this, &EchoClient::closed);
     //    connect(&m_webSocket, &QWebSocket::error, this, &EchoClient::onError);
-    connect(&m_webSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(onError(QAbstractSocket::SocketError)));
-    m_webSocket.open(QUrl(url));
+    //    connect(&m_webSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(onError(QAbstractSocket::SocketError)));
+    //    m_webSocket.open(QUrl(url));
 }
 
 void EchoClient::onConnected()
