@@ -1,11 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "EchoClient.h"
-
 #include <QMainWindow>
-#include <QNetworkAccessManager>
-#include <QNetworkRequest>
+#include <QJsonObject>
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -30,7 +27,9 @@ class MainWindow : public QMainWindow
 
   private:
     Ui::MainWindow *ui;
-    QNetworkAccessManager *_manager = Q_NULLPTR;
-    EchoClient *_echoClient = Q_NULLPTR;
+    QJsonObject _response;
+    QString _error;
+
+    void put(const QString &value);
 };
 #endif  // MAINWINDOW_H

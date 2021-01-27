@@ -4,102 +4,63 @@
 #include <QNetworkReply>
 #include <QNetworkAccessManager>
 #include <QFile>
+#include <QJsonDocument>
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
-{
-    ui->setupUi(this);
 
-    //    _echoClient = new EchoClient(QUrl("http://192.168.178.101/"), true, this);
-
-    _manager = new QNetworkAccessManager();
-    QObject::connect(_manager, &QNetworkAccessManager::finished, this, [=](QNetworkReply *reply) {
-        if (reply->error())
-        {
-            qDebug() << reply->errorString();
-            return;
-        }
-
-        QString answer = reply->readAll();
-
-        qDebug() << answer;
-    });
-}
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) { ui->setupUi(this); }
 
 MainWindow::~MainWindow() { delete ui; }
 
-void MainWindow::on_onPB_clicked()
+void MainWindow::on_onPB_clicked() { put("/5/on"); }
+
+void MainWindow::on_offPB_clicked() { put("/5/off"); }
+
+void MainWindow::put(const QString &value)
 {
-    //    QString m_Host = "192.168.168.101";
-    //    quint16 m_Port = 80;
+    QTcpSocket socket;
+    //    socket.connectToHost("192.168.168.150", 80);
+    socket.connectToHost("192.168.168.101", 80);
+    QNetworkAccessManager nam;
+    //    QString host = "192.168.168.150";
+    //    QString path = "/api/v1/nodes/rc_contour/parameters/rccontour_contour_canny_low_thresh";
+    QString host = "192.168.168.101";
+    QString path = value;
 
-    //    QTcpSocket socket;
-    //    socket.connectToHost(m_Host, m_Port);
-    //    QNetworkAccessManager nam;
+    QString url = "http://" + host + ":" + QString::number(80);
+    if (!path.startsWith("/")) url += "/";
+    url += path;
 
-    //    QString url1 = m_Host + "/5/on";
+    QNetworkRequest request(url);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "text/html");
 
-    //    QNetworkRequest request(url1);
-    //    request.setHeader(QNetworkRequest::ContentTypeHeader, "text/html");
-    //    request.setRawHeader("Connection", "keep-alive, Upgrade");
-
-    //    QByteArray arr;
-    //    QNetworkReply *reply = nam.get(request);
+    /*QNetworkReply *reply = */ nam.get(request);
 
     //    while (!reply->isFinished())
     //    {
-
     //        QCoreApplication::processEvents();
     //    }
 
-
-    //    QByteArray ret;
-    //    qWarning() << "QNetworkReply return error " << reply->error();
-    //    ret = reply->readAll();
-
-    //    qDebug() << ret;
-
-    QNetworkRequest request;
-    request.setUrl(QUrl("192.168.178.101/5/off"));
-    _manager->get(request);
-}
-
-void MainWindow::on_offPB_clicked()
-{
-    QNetworkRequest request;
-    request.setUrl(QUrl("192.168.178.101/5/on"));
-    _manager->get(request);
-
-
-    //    QString m_Host = "192.168.168.101";
-    //    quint16 m_Port = 80;
-
-    //    QTcpSocket socket;
-    //    socket.connectToHost(m_Host, m_Port);
-
-    //    if (socket.waitForConnected(1000)) qDebug("Connected!");
-    //    QNetworkAccessManager nam;
-
-
-    //    QString url1 = m_Host + "/5/on";
-
-    //    QNetworkRequest request(url1);
-    //    request.setHeader(QNetworkRequest::ContentTypeHeader, "text/html");
-    //    request.setRawHeader("Connection", "keep-alive, Upgrade");
-
-
-    //    QByteArray arr;
-    //    QNetworkReply *reply = nam.get(request);
-
-    //    while (!reply->isFinished())
+    //    if (reply->error() != QNetworkReply::NoError)
     //    {
-
-    //        QCoreApplication::processEvents();
+    //        QJsonDocument resultDoc = QJsonDocument::fromJson(reply->readAll());
+    //        if (!resultDoc.isEmpty())
+    //        {
+    //            QJsonObject obj = resultDoc.object();
+    //            _error = obj["message"].toString();
+    //        }
+    //        else
+    //        {
+    //            _error = reply->errorString();
+    //        }
+    //        //        return false;
     //    }
 
-
-    //    QByteArray ret;
-    //    qWarning() << "QNetworkReply return error " << reply->error();
-    //    ret = reply->readAll();
-
-    //    qDebug() << ret;
+    //    QJsonDocument resultDoc = QJsonDocument::fromJson(reply->readAll());
+    //    if (resultDoc.isEmpty())
+    //    {
+    //        qWarning() << "Emtpy Result received!";
+    //        //        return false;
+    //    }
+    //    _response = resultDoc.object();
+    //    return true;
 }
