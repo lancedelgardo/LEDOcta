@@ -18,11 +18,8 @@ void MainWindow::on_offPB_clicked() { put("/5/off"); }
 void MainWindow::put(const QString &value)
 {
     QTcpSocket socket;
-    //    socket.connectToHost("192.168.168.150", 80);
     socket.connectToHost("192.168.168.174", 80);
     QNetworkAccessManager nam;
-    //    QString host = "192.168.168.150";
-    //    QString path = "/api/v1/nodes/rc_contour/parameters/rccontour_contour_canny_low_thresh";
     QString host = "192.168.168.174";
     QString path = value;
 
@@ -34,6 +31,8 @@ void MainWindow::put(const QString &value)
     request.setHeader(QNetworkRequest::ContentTypeHeader, "text/html");
 
     QNetworkReply *reply = nam.get(request);
+
+    connect(reply, &QNetworkReply::readyRead, this, [=]() { qDebug() << reply->readAll(); });
 
     while (!reply->isFinished())
     {
@@ -55,12 +54,6 @@ void MainWindow::put(const QString &value)
         //        return false;
     }
 
-    //    QJsonDocument resultDoc = QJsonDocument::fromJson(reply->readAll());
-    //    if (resultDoc.isEmpty())
-    //    {
-    //        qWarning() << "Emtpy Result received!";
-    //        //        return false;
-    //    }
-    //    _response = resultDoc.object();
-    //    return true;
+
+    qDebug() << "Fertig mit senden";
 }
