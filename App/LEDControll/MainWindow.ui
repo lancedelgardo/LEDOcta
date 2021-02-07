@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>617</width>
-    <height>260</height>
+    <height>464</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,6 +28,16 @@
        <string>Off</string>
       </property>
      </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="scanWifipushButton">
+      <property name="text">
+       <string>Scan</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QListView" name="listView"/>
     </item>
    </layout>
   </widget>

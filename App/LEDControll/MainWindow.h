@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "WIFIHandler.h"
+
 #include <QMainWindow>
 #include <QJsonObject>
 
@@ -21,15 +23,12 @@ class MainWindow : public QMainWindow
 
   private slots:
     void on_onPB_clicked();
-
     void on_offPB_clicked();
 
+    void on_scanWifipushButton_clicked();
 
-  private:
+private:
     Ui::MainWindow *ui;
-    QJsonObject _response;
-    QString _error;
-
-    void put(const QString &value);
+    WIFIHandler *_wifiHandler = Q_NULLPTR;
 };
 #endif  // MAINWINDOW_H

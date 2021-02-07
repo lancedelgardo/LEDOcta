@@ -10,10 +10,18 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    MainWindow.cpp
+    MainWindow.cpp \
+    APIBase.cpp \
+    ControllLed.cpp \
+    WIFIHandler.cpp \
+    WifiListModel.cpp
 
 HEADERS += \
-    MainWindow.h
+    MainWindow.h \
+    APIBase.h \
+    ControllLed.h \
+    WIFIHandler.h \
+    WifiListModel.h
 
 FORMS += \
     MainWindow.ui
