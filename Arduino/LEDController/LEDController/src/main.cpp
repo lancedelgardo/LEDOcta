@@ -6,20 +6,23 @@
 #include <Arduino.h>
 
 // Load Wi-Fi library
-#include <ESP8266WiFi.h>
+// #include <ESP8266WiFi.h>
+
+#include "wifi.h"
+#include "ConfigData.h"
 
 // Replace with your network credentials
 // const char* ssid = "Hydra";
 // const char* password = "L!uTwid%Ss58i!BA#";
 
-const char* ssid = "RGT Demo";
-const char* password = "0a0b0c0d0e";
+//const char* ssid = "RGT Demo";
+//const char* password = "0a0b0c0d0e";
 
 // Set web server port number to 80
-WiFiServer server(80);
+//WiFiServer server(80);
 
 // Variable to store the HTTP request
-String header;
+//String header;
 
 // Auxiliar variables to store the current output state
 String output5State = "off";
@@ -34,14 +37,20 @@ unsigned long previousTime = 0;
 // Define timeout time in milliseconds (example: 2000ms = 2s)
 const long timeoutTime = 2000;
 
+Wifi wifi;
+ConfigData cfgData;
+
+
 void setup() {
   Serial.begin(9600);
   // Initialize the output variables as outputs
   pinMode(LED_BUILTIN, OUTPUT);
   digitalWrite(LED_BUILTIN, LOW);
 
+ // wifi.connect();
+
   // Connect to Wi-Fi network with SSID and password
-  Serial.print("Connecting to ");
+  /*Serial.print("Connecting to ");
   Serial.println(ssid);
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
@@ -53,10 +62,43 @@ void setup() {
   Serial.println("WiFi connected.");
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
-  server.begin();
+  server.begin();*/
 }
 
 void loop(){
+
+  // ==================== EEPROM TEST ======================= //
+  //cfgData.loadConfig();
+  Serial.println(cfgData.getPassword());
+    Serial.println(cfgData.getSSID());
+  delay(3000);
+  Serial.println("Start TestChange");
+  cfgData.loadConfig();
+
+  delay(10000000);
+
+
+  // ==================== EEPROM TEST ENDE ======================= //
+
+// ==================== WIFI TEST ======================= //
+/*
+  if(wifi.openedOwnAP())
+  {
+    Serial.println(wifi.currentWifiName());
+  }
+  else
+  {
+    Serial.println(wifi.isConnected());
+  }
+
+  delay(2000);
+*/
+// ==================== WIFI TEST ENDE ======================= //
+
+
+
+
+ /*
   WiFiClient client = server.available();   // Listen for incoming clients
 
   if (client) {                             // If a new client connects,
@@ -145,4 +187,5 @@ void loop(){
     Serial.println("Client disconnected.");
     Serial.println("");
   }
+  */
 }
