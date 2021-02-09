@@ -71,14 +71,12 @@ void ConfigData::testChangeData()
 
 void ConfigData::flushEEProm()
 {
-    Serial.println("Test Flush");
-    
+    Serial.println("Flush EEPROM");
     EEPROM.begin(512);
-    for(int i = 0; i < 512; i++)
+    for(int i = 0; i < EEPROM.length(); i++)
     {
         EEPROM.write(i,0);
     }
-    EEPROM.commit();
     EEPROM.end();
     Serial.println("Flush Finish");
 }
@@ -93,7 +91,7 @@ void ConfigData::testRead()
    // EEPROM.get(0, s);
     //EEPROM.get(1, s2);
     
-    EEPROM.get(0, data);
+    EEPROM.get(256, data);
 
     /*
     for(int i = 0; i < 512; i++)
@@ -122,7 +120,7 @@ void ConfigData::testWrite()
 
     data.password = "Mein Passwort";
     data.ssid = "MeineSSID %+$;ci fj";
-    EEPROM.put(0, data);
+    EEPROM.put(256, data);
 
     /*
     for(int i = 0; i < 512; i++)
@@ -131,7 +129,6 @@ void ConfigData::testWrite()
     }
     */
 
-    EEPROM.commit();
     EEPROM.end();
     Serial.println("Write Finish");
 }

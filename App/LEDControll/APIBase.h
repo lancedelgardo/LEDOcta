@@ -10,6 +10,8 @@ class APIBase : public QObject
   public:
     explicit APIBase(QObject *parent = nullptr);
 
+    void setHost(const QString &host);
+
   signals:
 
   public slots:

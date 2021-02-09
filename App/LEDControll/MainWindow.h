@@ -31,6 +31,7 @@ class MainWindow : public QMainWindow
 
     void on_pushButton_clicked();
 
+
   private:
     Ui::MainWindow *ui;
     WIFIHandler *_wifiHandler = Q_NULLPTR;

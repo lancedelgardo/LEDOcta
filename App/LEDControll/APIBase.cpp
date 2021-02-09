@@ -104,3 +104,5 @@ void APIBase::get(const QString &value)
 
     qDebug() << "Fertig mit senden";
 }
+
+void APIBase::setHost(const QString &host) { _host = host; }

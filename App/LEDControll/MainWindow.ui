@@ -16,6 +16,13 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
+     <widget class="QLineEdit" name="ipLineEdit">
+      <property name="placeholderText">
+       <string>IPAddress</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QPushButton" name="onPB">
       <property name="text">
        <string>FlushProm</string>
@@ -75,7 +82,7 @@
      <x>0</x>
      <y>0</y>
      <width>617</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

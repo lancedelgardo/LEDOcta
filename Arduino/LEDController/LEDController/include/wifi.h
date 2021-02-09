@@ -22,10 +22,10 @@ class Wifi
 
     private:
         // Replace with your network credentials
-        //const char* ssid = "Hydra";
-        //const char* password = "L!uTwid%Ss58i!BA# ";
-        const char* ssid = "RGT Demo";
-        const char* password = "0a0b0c0d0e";
+        const char* ssid = "Hydra";
+        const char* password = "L!uTwid%Ss58i!BA#";
+        //const char* ssid = "RGT Demo";
+        //const char* password = "0a0b0c0d0e";
 
         // Set web server port number to 80
         WiFiServer *server;
