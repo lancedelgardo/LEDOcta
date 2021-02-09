@@ -7,21 +7,21 @@
 class APIBase : public QObject
 {
     Q_OBJECT
-public:
+  public:
     explicit APIBase(QObject *parent = nullptr);
 
-signals:
+  signals:
 
-public slots:
+  public slots:
 
-protected:
- virtual void put(const QString &value);
- virtual void get(const QString &value);
+  protected:
+    virtual void put(const QString &value);
+    virtual void get(const QString &value);
 
-private:
+  private:
     QJsonObject _response;
     QString _error;
     QString _host;
 };
 
-#endif // APIBASE_H
+#endif  // APIBASE_H

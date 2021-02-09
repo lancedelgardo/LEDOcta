@@ -21,18 +21,35 @@ MainWindow::~MainWindow() { delete ui; }
 
 void MainWindow::on_onPB_clicked()
 {
+    // Flush Prom
     ControllLed cl;
-    cl.ledOn();
+    //    cl.ledOn();
+    cl.flushProm();
 }
 
 void MainWindow::on_offPB_clicked()
 {
+    // READ PROM
     ControllLed cl;
-    cl.ledOn();
+    //    cl.ledOn();
+    cl.readProm();
 }
 
 void MainWindow::on_scanWifipushButton_clicked()
 {
     _wifiHandler->scanWifi();
     ui->listView->update();
+}
+
+void MainWindow::on_sendWifiPushButton_clicked()
+{
+    ControllLed cl;
+    cl.sendWifiData(ui->ssidLineEdit->text(), ui->passwordLineEdit->text());
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    // writeProm
+    ControllLed cl;
+    cl.writeProm();
 }

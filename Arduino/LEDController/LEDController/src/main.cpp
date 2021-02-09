@@ -38,8 +38,7 @@ unsigned long previousTime = 0;
 const long timeoutTime = 2000;
 
 Wifi wifi;
-ConfigData cfgData;
-
+//ConfigData cfgData; Wird eher in Wifi gebraucht...
 
 void setup() {
   Serial.begin(9600);
@@ -47,7 +46,7 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
   digitalWrite(LED_BUILTIN, LOW);
 
- // wifi.connect();
+  wifi.connect();
 
   // Connect to Wi-Fi network with SSID and password
   /*Serial.print("Connecting to ");
@@ -69,6 +68,8 @@ void loop(){
 
   // ==================== EEPROM TEST ======================= //
   //cfgData.loadConfig();
+ 
+ /*
   Serial.println(cfgData.getPassword());
     Serial.println(cfgData.getSSID());
   delay(3000);
@@ -76,7 +77,7 @@ void loop(){
   cfgData.loadConfig();
 
   delay(10000000);
-
+*/
 
   // ==================== EEPROM TEST ENDE ======================= //
 
@@ -93,6 +94,9 @@ void loop(){
 
   delay(2000);
 */
+
+
+  wifi.checkClient();
 // ==================== WIFI TEST ENDE ======================= //
 
 

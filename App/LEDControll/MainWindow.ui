@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>617</width>
-    <height>464</height>
+    <height>707</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,14 +18,21 @@
     <item>
      <widget class="QPushButton" name="onPB">
       <property name="text">
-       <string>On</string>
+       <string>FlushProm</string>
       </property>
      </widget>
     </item>
     <item>
      <widget class="QPushButton" name="offPB">
       <property name="text">
-       <string>Off</string>
+       <string>ReadProm</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton">
+      <property name="text">
+       <string>WriteProm</string>
       </property>
      </widget>
     </item>
@@ -38,6 +45,27 @@
     </item>
     <item>
      <widget class="QListView" name="listView"/>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="ssidLineEdit">
+      <property name="placeholderText">
+       <string>SSID</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="passwordLineEdit">
+      <property name="placeholderText">
+       <string>Password</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="sendWifiPushButton">
+      <property name="text">
+       <string>Send Wifi Data</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

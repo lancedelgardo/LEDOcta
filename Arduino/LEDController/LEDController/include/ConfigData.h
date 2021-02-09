@@ -14,11 +14,17 @@ class ConfigData
 
         void testChangeData();
 
+        void setSSID(const String &ssid);
+        void setPassword(const String &pw);
+
+        void flushEEProm();
+        void testRead();
+        void testWrite();
+
     private:
     struct cfgData_t{ 
-        String ssid = "myssid";
-        String password = "mypassword";
-        int test = 1;
+        String ssid = "";
+        String password = "";
     } data;
         
     int address = 0;

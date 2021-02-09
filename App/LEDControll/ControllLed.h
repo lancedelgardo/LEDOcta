@@ -5,10 +5,15 @@
 
 class ControllLed : public APIBase
 {
-public:
+  public:
     ControllLed();
     void ledOn();
     void ledOff();
+    void sendWifiData(const QString &ssid, const QString &password);
+
+    void writeProm();
+    void readProm();
+    void flushProm();
 };
 
-#endif // CONTROLLLED_H
+#endif  // CONTROLLLED_H

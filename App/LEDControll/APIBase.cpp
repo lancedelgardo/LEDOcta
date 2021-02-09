@@ -10,10 +10,12 @@
 
 APIBase::APIBase(QObject *parent) : QObject(parent)
 {
-    QSettings set;
-    set.beginGroup("main");
-    _host = set.value("Host").toString();
-    set.endGroup();
+    //    QSettings set;
+    //    set.beginGroup("main");
+    //    _host = set.value("Host").toString();
+    //    set.endGroup();
+
+    _host = "192.168.168.168";
 }
 
 void APIBase::put(const QString &value)
@@ -22,7 +24,6 @@ void APIBase::put(const QString &value)
     socket.connectToHost(_host, 80);
     QNetworkAccessManager nam;
 
-    QByteArray data;
     QString path = value;
     QString url = "http://" + _host + ":" + QString::number(80);
     if (!path.startsWith("/")) url += "/";
@@ -31,7 +32,8 @@ void APIBase::put(const QString &value)
     QNetworkRequest request(url);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "text/html");
 
-    QNetworkReply *reply = nam.put(request,data);
+    QByteArray data = value.toUtf8().data();
+    QNetworkReply *reply = nam.put(request, data);
 
     connect(reply, &QNetworkReply::readyRead, this, [=]() { qDebug() << reply->readAll(); });
 
@@ -75,6 +77,7 @@ void APIBase::get(const QString &value)
 
     QNetworkReply *reply = nam.get(request);
 
+
     connect(reply, &QNetworkReply::readyRead, this, [=]() { qDebug() << reply->readAll(); });
 
     while (!reply->isFinished())
@@ -97,6 +100,7 @@ void APIBase::get(const QString &value)
         //        return false;
     }
 
+    qDebug() << _response;
 
     qDebug() << "Fertig mit senden";
 }

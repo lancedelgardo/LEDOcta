@@ -27,7 +27,11 @@ class MainWindow : public QMainWindow
 
     void on_scanWifipushButton_clicked();
 
-private:
+    void on_sendWifiPushButton_clicked();
+
+    void on_pushButton_clicked();
+
+  private:
     Ui::MainWindow *ui;
     WIFIHandler *_wifiHandler = Q_NULLPTR;
 };
