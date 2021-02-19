@@ -2,133 +2,87 @@
 
 #include <EEPROM.h>
 
-ConfigData::ConfigData()
+ConfigData::ConfigData(){}
+
+void ConfigData::init()
 {
-    Serial.println(data.password);
-    Serial.println(data.ssid);
+    EEPROM.begin(512);
 }
 
 String ConfigData::getSSID()
 {
-    return data.ssid;
+    return _ssid;
 }
 
 void ConfigData::setSSID(const String &ssid)
 {
-    data.ssid = ssid;
+    _ssid = ssid;
+    Serial.print("SSID Set To: ");
+    Serial.println(_ssid);
 }
 
 String ConfigData::getPassword()
 {
-    return data.password;
+    return _password;
 }
 
 void ConfigData::setPassword(const String &pw)
 {
-    data.password = pw;
+    _password = pw;
+    Serial.print("Password Set To: ");
+    Serial.println(_password);
 }
 
 void ConfigData::saveConfig()
 {
     flushEEProm();
-    EEPROM.begin(512);
-    EEPROM.put(0, data);
-    EEPROM.commit();                      // Only needed for ESP8266 to get data written
-    EEPROM.end();                         // Free RAM copy of structure
-    
-    Serial.println("Saved To EEPROM");
+    uint addrOffset = 0;
+    byte ssidlen = _ssid.length();
+    EEPROM.write(addrOffset++, ssidlen);
+    for (int i = 0; i < ssidlen; i++)
+    {
+        EEPROM.write(addrOffset + i, _ssid[i]);
+    }
+
+    addrOffset += ssidlen +1;
+    byte pwlen = _password.length();
+    EEPROM.write(addrOffset++, pwlen);
+    for(int i = 0; i < pwlen; i++){
+        EEPROM.write(addrOffset + i, _password[i]);
+    }
+    EEPROM.commit();
 }
 
 void ConfigData::loadConfig()
 {
-    EEPROM.begin(512);
-    EEPROM.get(0, data);
-    EEPROM.end();
-
-    Serial.println("Fertig geladen");
-    Serial.println(data.password);
-    Serial.println(data.ssid);
-}
-
-void ConfigData::testChangeData()
-{
-    Serial.println(data.password);
-    Serial.println(data.ssid);
+    uint addrOffset = 0;
+    int ssidlen = EEPROM.read(addrOffset++);
+    char ssiddata[ssidlen + 1];
+    for (int i = 0; i < ssidlen; i++)
+    {
+        ssiddata[i] = EEPROM.read(addrOffset + i);
+    }
+    ssiddata[ssidlen] = '\0'; // the character may appear in a weird way, you should read: 'only one backslash and 0'
     
-    delay(1000);
+    _ssid = String(ssiddata);
 
-    data.ssid = "neueSSID";
-    data.password = "NeuesPasswort";
+    addrOffset += ssidlen + 1;
+    int pwlen = EEPROM.read(addrOffset++);
+    char pwdata[pwlen + 1];
+    for (int i = 0; i < pwlen; i++){
+        pwdata[i] = EEPROM.read(addrOffset + i);
+    }
+    pwdata[pwlen] = '\0';
 
-    Serial.println(data.password);
-    Serial.println(data.ssid);
-
-    delay(1000);
-
-    Serial.println("Saveconfig...");
-    saveConfig();
+    _password = String(pwdata);
 }
 
 void ConfigData::flushEEProm()
 {
     Serial.println("Flush EEPROM");
-    EEPROM.begin(512);
     for(int i = 0; i < EEPROM.length(); i++)
     {
         EEPROM.write(i,0);
     }
-    EEPROM.end();
     Serial.println("Flush Finish");
-}
-
-void ConfigData::testRead()
-{
-    EEPROM.begin(512);
-    String s;
-    String s2;
-    Serial.println("Test Read");
-    
-   // EEPROM.get(0, s);
-    //EEPROM.get(1, s2);
-    
-    EEPROM.get(256, data);
-
-    /*
-    for(int i = 0; i < 512; i++)
-    {
-        EEPROM.get(i,s);
-    }
-    */
-
-    EEPROM.end();
-    Serial.println(data.password);
-    Serial.println(data.ssid);
-    Serial.println(s);
-    Serial.println(s2);
-    Serial.println("Read Finish");
-}
-
-void ConfigData::testWrite()
-{
-    EEPROM.begin(512);
-    Serial.println("Test Write");
-    String s = "Bla";
-    String s2 = "Blub";
-    
-    //EEPROM.put(0,s);
-    //EEPROM.put(0,s2);
-
-    data.password = "Mein Passwort";
-    data.ssid = "MeineSSID %+$;ci fj";
-    EEPROM.put(256, data);
-
-    /*
-    for(int i = 0; i < 512; i++)
-    {
-        EEPROM.put(i,s);
-    }
-    */
-
-    EEPROM.end();
-    Serial.println("Write Finish");
 }

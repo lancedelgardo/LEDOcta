@@ -10,7 +10,9 @@ void Wifi::connect()
     // Connect to Wi-Fi network with SSID and password
     int maxTry = 50;
     Serial.println("Load Data from EEPROM");
-   // cfgData.loadConfig();
+
+    cfgData.init();
+    cfgData.loadConfig();
 
     Serial.println("Connecting to ");
     Serial.println(cfgData.getSSID());
@@ -37,10 +39,16 @@ void Wifi::connect()
     }
     else
     {
-        Serial.print("Setting soft-AP ... ");
+        Serial.println("Setting soft-AP ... ");
+        Serial.print("SSID: ");
+        Serial.println("ESPsoftAP_01");
+        Serial.print("Password: ");
+        Serial.println("pass-to-soft-AP");
         boolean result = WiFi.softAP("ESPsoftAP_01", "pass-to-soft-AP");
         if(result == true)
         {
+            Serial.print("IP: ");
+            Serial.println(WiFi.softAPIP());
             Serial.println("Ready");
         }
         else
@@ -113,15 +121,15 @@ void Wifi::checkClient()
                         }
                         else if (header.indexOf("GET /read") >= 0) 
                         {
-                            cfgData.testRead();
+                            //cfgData.testRead();
                         }
                         else if (header.indexOf("GET /write") >= 0) 
                         {
-                            cfgData.testWrite();
+                            //cfgData.testWrite();
                         }
                         else if (header.indexOf("GET /flush") >= 0) 
                         {
-                            cfgData.flushEEProm();
+                            //cfgData.flushEEProm();
                         }
                         else if(header.indexOf("PUT /ssid=") >= 0)
                         {
@@ -145,7 +153,6 @@ void Wifi::checkClient()
                             cfgData.setPassword(password);
 
                             cfgData.saveConfig();
-
                         }
                     }
                     else 

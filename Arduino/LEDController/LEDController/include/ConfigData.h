@@ -7,27 +7,21 @@ class ConfigData
 {
     public:
         ConfigData();
+        void init();
+
         String getSSID();
         String getPassword();
-        void saveConfig();
-        void loadConfig();
-
-        void testChangeData();
-
         void setSSID(const String &ssid);
         void setPassword(const String &pw);
 
-        void flushEEProm();
-        void testRead();
-        void testWrite();
+        void saveConfig();
+        void loadConfig();
 
     private:
-    struct cfgData_t{ 
-        String ssid = "";
-        String password = "";
-    } data;
-        
-    int address = 0;
+        void flushEEProm();
+
+        String _ssid;
+        String _password;
 };
 
 #endif  // CONFIGDATA_H
