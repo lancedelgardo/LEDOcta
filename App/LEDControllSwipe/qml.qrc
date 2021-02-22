@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>WiFiList.qml</file>
+        <file>InputPage.qml</file>
+    </qresource>
+</RCC>

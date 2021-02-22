@@ -26,11 +26,19 @@ String ConfigData::getPassword()
     return _password;
 }
 
+String ConfigData::getIpAddress()
+{
+    return _ipAddress;
+}
+
 void ConfigData::setPassword(const String &pw)
 {
     _password = pw;
-    Serial.print("Password Set To: ");
-    Serial.println(_password);
+}
+
+void ConfigData::setIpAddress(const String &ip)
+{
+    _ipAddress = ip;
 }
 
 void ConfigData::saveConfig()
@@ -50,6 +58,14 @@ void ConfigData::saveConfig()
     for(int i = 0; i < pwlen; i++){
         EEPROM.write(addrOffset + i, _password[i]);
     }
+
+    addrOffset += pwlen +1;
+    byte iplen = _ipAddress.length();
+    EEPROM.write(addrOffset++, iplen);
+    for(int i = 0; i < iplen; i++){
+        EEPROM.write(addrOffset + i, _ipAddress[i]);
+    }
+
     EEPROM.commit();
 }
 
@@ -73,8 +89,16 @@ void ConfigData::loadConfig()
         pwdata[i] = EEPROM.read(addrOffset + i);
     }
     pwdata[pwlen] = '\0';
-
     _password = String(pwdata);
+
+    addrOffset += pwlen + 1;
+    int iplen = EEPROM.read(addrOffset++);
+    char ipdata[iplen + 1];
+    for (int i = 0; i < iplen; i++){
+        ipdata[i] = EEPROM.read(addrOffset + i);
+    }
+    ipdata[iplen] = '\0';
+    _ipAddress = String(ipdata);
 }
 
 void ConfigData::flushEEProm()

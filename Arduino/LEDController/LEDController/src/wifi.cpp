@@ -12,13 +12,13 @@ void Wifi::connect()
     Serial.println("Load Data from EEPROM");
 
     cfgData.init();
-    cfgData.loadConfig();
+    //cfgData.loadConfig();
 
     Serial.println("Connecting to ");
     Serial.println(cfgData.getSSID());
     Serial.println(cfgData.getPassword());
     //WiFi.begin(cfgData.getSSID(), cfgData.getPassword());
-    WiFi.begin(ssid, password);
+    WiFi.begin(cfgData.getSSID(), cfgData.getPassword());
     int count = 0;
     while (WiFi.status() != WL_CONNECTED) {
         delay(500);
@@ -32,8 +32,9 @@ void Wifi::connect()
          // Print local IP address and start web server
         Serial.println("");
         Serial.println("WiFi connected.");
-        Serial.println("IP address: ");
+        Serial.print("IP: ");
         Serial.println(WiFi.localIP());
+        Serial.println(WiFi.hostname());
         server->begin();
         hasConnectedToGivenSSID = true;
     }

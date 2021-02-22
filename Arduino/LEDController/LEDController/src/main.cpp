@@ -65,40 +65,7 @@ void setup() {
 }
 
 void loop(){
-
-  // ==================== EEPROM TEST ======================= //
-  //cfgData.loadConfig();
- 
- /*
-  Serial.println(cfgData.getPassword());
-    Serial.println(cfgData.getSSID());
-  delay(3000);
-  Serial.println("Start TestChange");
-  cfgData.loadConfig();
-
-  delay(10000000);
-*/
-
-  // ==================== EEPROM TEST ENDE ======================= //
-
-// ==================== WIFI TEST ======================= //
-/*
-  if(wifi.openedOwnAP())
-  {
-    Serial.println(wifi.currentWifiName());
-  }
-  else
-  {
-    Serial.println(wifi.isConnected());
-  }
-
-  delay(2000);
-*/
-
-
   wifi.checkClient();
-// ==================== WIFI TEST ENDE ======================= //
-
 
 
 

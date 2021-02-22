@@ -11,8 +11,10 @@ class ConfigData
 
         String getSSID();
         String getPassword();
+        String getIpAddress();
         void setSSID(const String &ssid);
         void setPassword(const String &pw);
+        void setIpAddress(const String &ip);
 
         void saveConfig();
         void loadConfig();
@@ -20,8 +22,9 @@ class ConfigData
     private:
         void flushEEProm();
 
-        String _ssid;
-        String _password;
+        String _ssid = "UPC9438918_EXT";
+        String _password = "fhhsyar6hppQ";
+        String _ipAddress;
 };
 
 #endif  // CONFIGDATA_H

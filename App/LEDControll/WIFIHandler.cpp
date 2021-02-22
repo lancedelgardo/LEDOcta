@@ -22,6 +22,7 @@ void WIFIHandler::scanWifi()
     foreach (auto ssid, ssids)
     {
         qDebug() << ssid.name();
+        if(ssid.name().isEmpty()) continue;
         _model->addWifi(ssid.name());
     }
 }
