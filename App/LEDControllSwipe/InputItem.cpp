@@ -7,7 +7,7 @@ InputItem::InputItem(QObject *parent) : QObject(parent)
 {
     _checkedObjects.append(1);
     _checkedObjects.append(3);
-    QTimer::singleShot(10000, this, SLOT(onTimerUpdate()));
+    //QTimer::singleShot(10000, this, SLOT(onTimerUpdate()));
 }
 
 QString InputItem::name() const
@@ -61,6 +61,40 @@ void InputItem::appendObject(int value)
     _checkedObjects.append(value);
     qDebug() << "New CheckedObjectsSize: " + QString::number(_checkedObjects.size());
     checkedObjectsChanged();
+}
+
+void InputItem::onTimerStart()
+{
+    QTimer::singleShot(5000,this, SLOT(onTimerEnd()));
+    qDebug() << "Timer Started";
+}
+
+void InputItem::onTimerEnd()
+{
+    qDebug() << "Timer End";
+    timerEnded();
+}
+
+QString InputItem::getImagePath() const
+{
+    return _imagePath;
+}
+
+void InputItem::setImagePath(const QString &imagePath)
+{
+    _imagePath = imagePath;
+    // imagePathChanged();
+    qDebug() << "Image Path Set: " + imagePath;
+}
+
+bool InputItem::busyRunning() const
+{
+    return _busyRunning;
+}
+
+void InputItem::setBusyRunning(bool busyRunning)
+{
+    _busyRunning = busyRunning;
 }
 
 void InputItem::onTimerUpdate()
