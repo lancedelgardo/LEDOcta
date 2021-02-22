@@ -16,7 +16,8 @@ SOURCES += main.cpp \
     WiFiData.cpp \
     WiFiItem.cpp \
     WiFiModel.cpp \
-    InputItem.cpp
+    InputItem.cpp \
+    InputDatas.cpp
 
 RESOURCES += qml.qrc
 
@@ -35,4 +36,5 @@ HEADERS += \
     WiFiData.h \
     WiFiItem.h \
     WiFiModel.h \
-    InputItem.h
+    InputItem.h \
+    InputDatas.h

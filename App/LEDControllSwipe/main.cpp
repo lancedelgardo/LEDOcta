@@ -5,6 +5,7 @@
 #include "WiFiData.h"
 #include "WiFiModel.h"
 #include "InputItem.h"
+#include "InputDatas.h"
 
 int main(int argc, char *argv[])
 {
@@ -18,6 +19,9 @@ int main(int argc, char *argv[])
     qmlRegisterType< InputItem >("InputItem", 1, 0, "InputItem");
     qmlRegisterUncreatableType< InputItem >("InputItem", 1, 0, "InputItem", QStringLiteral("InputItem should not be created in QML"));
 
+    qmlRegisterType< InputDatas >("InputDatas", 1, 0, "InputDatas");
+    qmlRegisterUncreatableType< InputDatas >("InputDatas", 1, 0, "InputDatas", QStringLiteral("InputDatas should not be created in QML"));
+
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
@@ -27,6 +31,9 @@ int main(int argc, char *argv[])
 
     InputItem inputItem;
     engine.rootContext()->setContextProperty(QStringLiteral("inputItem"), &inputItem);
+
+    InputDatas datas;
+    engine.rootContext()->setContextProperty(QStringLiteral("inputDatas"), &datas);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())

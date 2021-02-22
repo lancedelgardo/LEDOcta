@@ -18,8 +18,8 @@ ApplicationWindow {
         InputPage {
         }
 
-        ImagePicker {
-        }
+       // ImagePicker {
+        //}
     }
 
     footer: TabBar {
@@ -34,8 +34,8 @@ ApplicationWindow {
             text: qsTr("InputPage")
         }
 
-        TabButton {
-            text: qsTr("Image Picker")
-        }
+        //TabButton {
+          //  text: qsTr("Image Picker")
+        //}
     }
 }

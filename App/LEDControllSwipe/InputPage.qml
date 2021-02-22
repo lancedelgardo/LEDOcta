@@ -26,7 +26,7 @@ Page {
         y: 40
         width: 224
         height: 63
-        text: inputItem.name // vom c++ ablesen und aktuelle änderungen bekommen wenn signal ausgelöst wird
+        text: inputDatas.currentItem.name // vom c++ ablesen und aktuelle änderungen bekommen wenn signal ausgelöst wird
         font.pixelSize: 12
         onTextChanged: inputItem.name = text // zu c++ schicken
     }
@@ -80,7 +80,7 @@ Page {
 
 
 
-    eBorderImage {
+    BorderImage {
         id: borderImage
         x: 366
         y: 143
